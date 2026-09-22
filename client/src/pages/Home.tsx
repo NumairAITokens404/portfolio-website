@@ -2,8 +2,6 @@ import { FormEvent, useEffect, useState } from "react";
 import {
   ArrowDown,
   ArrowUpRight,
-  Award,
-  BriefcaseBusiness,
   Check,
   ChevronRight,
   Download,
@@ -86,13 +84,12 @@ const navItems = [
   { label: "About", href: "#about" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Certifications", href: "#certifications" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   const [sent, setSent] = useState(false);
   const [heroText, setHeroText] = useState("Numair.");
 
@@ -172,13 +169,8 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <button
-              type="button"
-              aria-label={darkMode ? "Switch to light theme" : "Switch to dark theme"}
-              onClick={() => setDarkMode((value) => !value)}
-              className="theme-toggle rounded-full border border-slate-200 bg-white p-2.5 text-slate-600 transition hover:border-blue-300 hover:text-blue-600"
-            >
-              {darkMode ? <Sun size={17} /> : <Moon size={17} />}
+            <button type="button" role="switch" aria-checked={darkMode} aria-label={darkMode ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setDarkMode((value) => !value)} className={`theme-switch ${darkMode ? "is-dark" : "is-light"}`}>
+              <span className="theme-switch-track"><Moon size={11} /><Sun size={11} /><span className="theme-switch-thumb" /></span>
             </button>
             <button
               type="button"
@@ -314,19 +306,9 @@ export default function Home() {
                       <div className="mt-4 grid grid-cols-[0.65fr_1fr] gap-2"><div className="rounded-md bg-slate-200/70" /><div className="space-y-2"><div className="h-2 w-3/4 rounded bg-slate-300/80" /><div className="h-2 w-full rounded bg-slate-200" /><div className="h-2 w-4/5 rounded bg-slate-200" /></div></div>
                     </div>
                   </div>
-                  <div className="p-6"><div className="mb-3 flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.13em] text-slate-500">{tag}</span>)}</div><h3 className="font-display text-2xl font-black tracking-[-0.05em] text-slate-950">{project.title}</h3><p className="mt-3 min-h-[96px] text-sm leading-6 text-slate-500">{project.description}</p><div className="mt-6 flex flex-wrap items-center gap-4">{project.demo ? <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 transition hover:text-blue-700">Live demo <ExternalLink size={15} /></a> : <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-amber-600">In progress</span>}<a href={project.repo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 transition hover:text-blue-600">Source <Github size={15} /></a></div></div>
+                  <div className="p-6"><div className="mb-3 flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.13em] text-slate-500">{tag}</span>)}</div><h3 className="font-display text-2xl font-black tracking-[-0.05em] text-slate-950">{project.title}</h3><p className="mt-3 min-h-[96px] text-sm leading-6 text-slate-500">{project.description}</p><div className="mt-6 flex flex-wrap items-center gap-4">{project.demo ? <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 transition hover:text-blue-700">Live demo <ExternalLink size={15} /></a> : <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-amber-600">In progress</span>}<a href={project.repo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 transition hover:text-blue-600"><Github size={15} /> View code</a></div></div>
                 </article>
               ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="certifications" className="section-padding bg-[#f5f8ff]">
-          <div className="container">
-            <div className="mx-auto max-w-2xl text-center"><div className="section-kicker justify-center">Certifications</div><h2 className="section-title mt-5">Proof of progress.</h2><p className="mt-5 text-[15px] leading-7 text-slate-500">Certifications and milestones will live here as the journey grows.</p></div>
-            <div className="mx-auto mt-12 max-w-3xl rounded-[1.75rem] border border-blue-100 bg-white p-7 shadow-[0_14px_42px_rgba(30,64,175,0.07)] sm:p-9">
-              <div className="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between"><div className="flex items-start gap-4"><div className="icon-badge bg-blue-50 text-blue-600"><Award size={20} /></div><div><p className="text-[11px] font-bold uppercase tracking-[0.16em] text-blue-600">Coming soon</p><h3 className="mt-2 font-display text-2xl font-black tracking-[-0.05em]">More milestones on the way</h3><p className="mt-3 max-w-xl text-sm leading-6 text-slate-500">This section is set up for your certifications, courses, and professional achievements. Add the details whenever you&apos;re ready.</p></div></div><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600"><Check size={16} /></span></div>
-              <div className="mt-7 flex items-center gap-4 border-t border-slate-100 pt-6 text-xs font-semibold text-slate-400"><BriefcaseBusiness size={16} className="text-blue-500" /> Keep learning. Keep shipping. Keep growing.</div>
             </div>
           </div>
         </section>
@@ -334,14 +316,14 @@ export default function Home() {
         <section id="contact" className="section-padding bg-white">
           <div className="container">
             <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-              <div><div className="section-kicker">Get in touch</div><h2 className="section-title mt-5">Have an idea? Let&apos;s make it real.</h2><p className="mt-6 max-w-md text-[15px] leading-7 text-slate-500">Whether you&apos;re building something new, looking for a collaborator, or just want to say hello, my inbox is open.</p><div className="mt-9 space-y-4"><a href="mailto:numair.dev@example.com" className="contact-line group flex items-center gap-4"><span className="icon-badge bg-blue-50 text-blue-600"><Mail size={18} /></span><span><span className="block text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Email</span><span className="mt-1 block text-sm font-semibold text-slate-700 group-hover:text-blue-600">numair.dev@example.com</span></span></a><div className="contact-line flex items-center gap-4"><span className="icon-badge bg-violet-50 text-violet-600"><MapPin size={18} /></span><span><span className="block text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Based in</span><span className="mt-1 block text-sm font-semibold text-slate-700">India · Working globally</span></span></div></div><div className="mt-9 flex gap-3"><a href="https://github.com/NumairAITokens404" target="_blank" rel="noreferrer" aria-label="GitHub" className="social-button"><Github size={18} /></a><a href="https://www.linkedin.com/in/numair-khan-13899b382" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-button"><Linkedin size={18} /></a><a href="mailto:numair.dev@example.com" aria-label="Email" className="social-button"><Mail size={18} /></a></div></div>
-              <form onSubmit={handleSubmit} className="rounded-[1.75rem] border border-slate-200 bg-[#f8faff] p-6 shadow-[0_15px_42px_rgba(30,64,175,0.06)] sm:p-8"><div className="grid gap-5 sm:grid-cols-2"><label className="field-label">Name<input required name="name" placeholder="Your name" className="field-input" /></label><label className="field-label">Email<input required type="email" name="email" placeholder="you@example.com" className="field-input" /></label></div><label className="field-label mt-5">Message<textarea required name="message" rows={6} placeholder="Tell me a little about your idea..." className="field-input resize-none" /></label><div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"><p className="text-xs leading-5 text-slate-400">This form is a front-end placeholder for now. Connect your preferred email service later.</p><button type="submit" className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-[0_12px_22px_rgba(37,99,235,0.2)] transition hover:-translate-y-0.5 hover:bg-blue-700">{sent ? "Message sent" : "Send message"} {sent ? <Check size={16} /> : <Send size={16} />}</button></div></form>
+              <div><div className="section-kicker">Get in touch</div><h2 className="section-title mt-5">Have an idea? Let&apos;s make it real.</h2><p className="mt-6 max-w-md text-[15px] leading-7 text-slate-500">Whether you&apos;re building something new, looking for a collaborator, or just want to say hello, my inbox is open.</p><div className="mt-9 space-y-4"><a href="mailto:numairkhanworks@gmail.com" className="contact-line group flex items-center gap-4"><span className="icon-badge bg-blue-50 text-blue-600"><Mail size={18} /></span><span><span className="block text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Email</span><span className="mt-1 block text-sm font-semibold text-slate-700 group-hover:text-blue-600">numairkhanworks@gmail.com</span></span></a><div className="contact-line flex items-center gap-4"><span className="icon-badge bg-violet-50 text-violet-600"><MapPin size={18} /></span><span><span className="block text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Based in</span><span className="mt-1 block text-sm font-semibold text-slate-700">Hyderabad, Telangana</span></span></div></div><div className="mt-9 flex gap-3"><a href="https://github.com/NumairAITokens404" target="_blank" rel="noreferrer" aria-label="GitHub" className="social-button"><Github size={18} /></a><a href="https://www.linkedin.com/in/numair-khan-13899b382" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-button"><Linkedin size={18} /></a><a href="mailto:numairkhanworks@gmail.com" aria-label="Email" className="social-button"><Mail size={18} /></a></div></div>
+              <form onSubmit={handleSubmit} className="rounded-[1.75rem] border border-slate-200 bg-[#f8faff] p-6 shadow-[0_15px_42px_rgba(30,64,175,0.06)] sm:p-8"><div className="grid gap-5 sm:grid-cols-2"><label className="field-label">Name<input required name="name" placeholder="Your name" className="field-input" /></label><label className="field-label">Email<input required type="email" name="email" placeholder="Your email address" className="field-input" /></label></div><label className="field-label mt-5">Message<textarea required name="message" rows={6} placeholder="Your message" className="field-input resize-none" /></label><div className="mt-6 flex justify-end"><button type="submit" className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-[0_12px_22px_rgba(37,99,235,0.2)] transition hover:-translate-y-0.5 hover:bg-blue-700">{sent ? "Message sent" : "Send message"} {sent ? <Check size={16} /> : <Send size={16} />}</button></div></form>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-[#f8faff] py-9"><div className="container flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><a href="#top" className="flex items-center gap-3"><span className="brand-mark">N</span><span className="font-display text-base font-black tracking-[-0.04em]">Numair</span></a><p className="text-xs font-medium text-slate-400">© Numair. Built with curiosity and care.</p><div className="flex items-center gap-4 text-xs font-semibold text-slate-400"><a href="#about" className="transition hover:text-blue-600">About</a><a href="#contact" className="transition hover:text-blue-600">Contact</a><a href="#top" className="transition hover:text-blue-600">Back to top</a></div></div></footer>
+      <footer className={`site-footer border-t py-9 ${darkMode ? "site-footer-dark text-white" : "site-footer-light text-slate-950"}`}><div className="container"><div className="flex flex-col gap-7 sm:flex-row sm:items-center sm:justify-between"><a href="#top" className="flex items-center gap-3"><span className="brand-mark">N</span><span><span className="block font-display text-lg font-black tracking-[-0.04em]">Numair</span><span className="mt-1 block text-sm text-slate-400">Full Stack Developer</span></span></a><div className="flex gap-3"><a href="https://github.com/NumairAITokens404" target="_blank" rel="noreferrer" aria-label="GitHub" className="footer-social"><Github size={18} /></a><a href="https://www.linkedin.com/in/numair-khan-13899b382" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="footer-social"><Linkedin size={18} /></a><a href="mailto:numairkhanworks@gmail.com" aria-label="Email" className="footer-social"><Mail size={18} /></a></div></div><div className="footer-bottom mt-8 flex flex-col gap-4 border-t pt-6 text-xs font-medium sm:flex-row sm:items-center sm:justify-between"><p>© Numair. All rights reserved.</p><div className="flex gap-5"><a href="#about" className="transition hover:text-white">About</a><a href="#contact" className="transition hover:text-white">Contact</a><a href="#top" className="transition hover:text-white">Back to top</a></div></div></div></footer>
     </div>
   );
 }
