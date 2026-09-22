@@ -54,7 +54,6 @@ const additionalSkills = [
 
 const projects = [
   {
-    number: "01",
     title: "AstroGuardian AI",
     description:
       "A space-mission control dashboard with telemetry, crew and system monitoring, hazard panels, rover navigation, shuttle status, and an AI mission copilot powered by Google Gemini.",
@@ -64,7 +63,6 @@ const projects = [
     repo: "https://github.com/NumairAITokens404/AstrogaurdianAI.git",
   },
   {
-    number: "02",
     title: "FSOC",
     description:
       "An ML/CV pipeline for a Unity-based free-space optical communication test environment, detecting and tracking optical beacons through preprocessing, CNN classification, temporal verification, and Kalman tracking.",
@@ -74,7 +72,6 @@ const projects = [
     repo: "https://github.com/sidnim12/fsoc-ml-cv.git",
   },
   {
-    number: "03",
     title: "CICS",
     description:
       "A Reddit-style internal social platform for MGIT students with college-email access, community feeds, rooms, profiles, multiple post types, voting, direct messaging, and admin moderation.",
@@ -106,36 +103,40 @@ export default function Home() {
   useEffect(() => {
     const name = "Numair.";
     const role = "Full Stack Developer";
+    let phraseIndex = 0;
     let index = name.length;
     let deleting = true;
-    let showingRole = false;
+    let pauseTicks = 0;
 
     const interval = window.setInterval(() => {
+      const phrase = phraseIndex === 0 ? name : role;
+
+      if (pauseTicks > 0) {
+        pauseTicks -= 1;
+        return;
+      }
+
       if (deleting && index > 0) {
         index -= 1;
-        setHeroText(name.slice(0, index));
+        setHeroText(phrase.slice(0, index));
         return;
       }
 
       if (deleting && index === 0) {
+        phraseIndex = phraseIndex === 0 ? 1 : 0;
         deleting = false;
-        showingRole = true;
         return;
       }
 
-      if (!deleting && showingRole && index < role.length) {
+      if (!deleting && index < phrase.length) {
         index += 1;
-        setHeroText(role.slice(0, index));
+        setHeroText(phrase.slice(0, index));
         return;
       }
 
-      if (!deleting && showingRole && index === role.length) {
-        showingRole = false;
-        window.setTimeout(() => {
-          deleting = true;
-          index = name.length;
-          setHeroText(name);
-        }, 1800);
+      if (!deleting && index === phrase.length) {
+        deleting = true;
+        pauseTicks = 12;
       }
     }, 115);
 
@@ -255,7 +256,7 @@ export default function Home() {
               </div>
 
               <div>
-                <div className="section-kicker"><span>01</span> About me</div>
+                <div className="section-kicker">About me</div>
                 <h2 className="section-title mt-5 max-w-xl">I build for the web, and I&apos;m always learning what comes next.</h2>
                 <div className="mt-7 space-y-5 text-[15px] leading-7 text-slate-500">
                   <p>I&apos;m a full-stack developer exploring different domains, building projects, and learning along the way. I enjoy turning ideas into clear, reliable experiences that feel good to use.</p>
@@ -277,7 +278,7 @@ export default function Home() {
         <section id="skills" className="section-padding bg-[#f5f8ff]">
           <div className="container">
             <div className="mx-auto max-w-2xl text-center">
-              <div className="section-kicker justify-center"><span>02</span> Technical skills</div>
+              <div className="section-kicker justify-center">Technical skills</div>
               <h2 className="section-title mt-5">Tools I use to bring ideas to life.</h2>
               <p className="mt-5 text-[15px] leading-7 text-slate-500">A growing toolkit across frontend development, backend systems, and the habits that make good products possible.</p>
             </div>
@@ -301,14 +302,13 @@ export default function Home() {
         <section id="projects" className="section-padding bg-white">
           <div className="container">
             <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-              <div><div className="section-kicker"><span>03</span> Featured projects</div><h2 className="section-title mt-5 max-w-2xl">A few things I&apos;ve been building.</h2></div>
+              <div><div className="section-kicker">Featured projects</div><h2 className="section-title mt-5 max-w-2xl">A few things I&apos;ve been building.</h2></div>
               <a href="https://github.com/NumairAITokens404" target="_blank" rel="noreferrer" className="inline-flex w-fit items-center gap-2 text-sm font-bold text-blue-600 transition hover:gap-3">See all on GitHub <ArrowUpRight size={16} /></a>
             </div>
             <div className="mt-14 grid gap-5 lg:grid-cols-3">
               {projects.map((project) => (
-                <article key={project.number} className="project-card group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_20px_48px_rgba(30,64,175,0.13)]">
+                <article key={project.title} className="project-card group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-[0_12px_35px_rgba(15,23,42,0.05)] transition duration-300 hover:-translate-y-2 hover:shadow-[0_20px_48px_rgba(30,64,175,0.13)]">
                   <div className={`project-visual relative h-48 overflow-hidden bg-gradient-to-br ${project.accent}`}>
-                    <div className="project-no">{project.number}</div>
                     <div className="project-window absolute bottom-[-20px] left-7 right-7 h-32 rounded-t-[1.1rem] border border-white/30 bg-white/80 p-3 shadow-2xl backdrop-blur-sm transition duration-300 group-hover:translate-y-[-8px]">
                       <div className="flex gap-1.5"><span className="h-2 w-2 rounded-full bg-red-300" /><span className="h-2 w-2 rounded-full bg-amber-300" /><span className="h-2 w-2 rounded-full bg-emerald-300" /></div>
                       <div className="mt-4 grid grid-cols-[0.65fr_1fr] gap-2"><div className="rounded-md bg-slate-200/70" /><div className="space-y-2"><div className="h-2 w-3/4 rounded bg-slate-300/80" /><div className="h-2 w-full rounded bg-slate-200" /><div className="h-2 w-4/5 rounded bg-slate-200" /></div></div>
@@ -323,7 +323,7 @@ export default function Home() {
 
         <section id="certifications" className="section-padding bg-[#f5f8ff]">
           <div className="container">
-            <div className="mx-auto max-w-2xl text-center"><div className="section-kicker justify-center"><span>04</span> Certifications</div><h2 className="section-title mt-5">Proof of progress.</h2><p className="mt-5 text-[15px] leading-7 text-slate-500">Certifications and milestones will live here as the journey grows.</p></div>
+            <div className="mx-auto max-w-2xl text-center"><div className="section-kicker justify-center">Certifications</div><h2 className="section-title mt-5">Proof of progress.</h2><p className="mt-5 text-[15px] leading-7 text-slate-500">Certifications and milestones will live here as the journey grows.</p></div>
             <div className="mx-auto mt-12 max-w-3xl rounded-[1.75rem] border border-blue-100 bg-white p-7 shadow-[0_14px_42px_rgba(30,64,175,0.07)] sm:p-9">
               <div className="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between"><div className="flex items-start gap-4"><div className="icon-badge bg-blue-50 text-blue-600"><Award size={20} /></div><div><p className="text-[11px] font-bold uppercase tracking-[0.16em] text-blue-600">Coming soon</p><h3 className="mt-2 font-display text-2xl font-black tracking-[-0.05em]">More milestones on the way</h3><p className="mt-3 max-w-xl text-sm leading-6 text-slate-500">This section is set up for your certifications, courses, and professional achievements. Add the details whenever you&apos;re ready.</p></div></div><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600"><Check size={16} /></span></div>
               <div className="mt-7 flex items-center gap-4 border-t border-slate-100 pt-6 text-xs font-semibold text-slate-400"><BriefcaseBusiness size={16} className="text-blue-500" /> Keep learning. Keep shipping. Keep growing.</div>
@@ -334,14 +334,14 @@ export default function Home() {
         <section id="contact" className="section-padding bg-white">
           <div className="container">
             <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24">
-              <div><div className="section-kicker"><span>05</span> Get in touch</div><h2 className="section-title mt-5">Have an idea? Let&apos;s make it real.</h2><p className="mt-6 max-w-md text-[15px] leading-7 text-slate-500">Whether you&apos;re building something new, looking for a collaborator, or just want to say hello, my inbox is open.</p><div className="mt-9 space-y-4"><a href="mailto:numair.dev@example.com" className="contact-line group flex items-center gap-4"><span className="icon-badge bg-blue-50 text-blue-600"><Mail size={18} /></span><span><span className="block text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Email</span><span className="mt-1 block text-sm font-semibold text-slate-700 group-hover:text-blue-600">numair.dev@example.com</span></span></a><div className="contact-line flex items-center gap-4"><span className="icon-badge bg-violet-50 text-violet-600"><MapPin size={18} /></span><span><span className="block text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Based in</span><span className="mt-1 block text-sm font-semibold text-slate-700">India · Working globally</span></span></div></div><div className="mt-9 flex gap-3"><a href="https://github.com/NumairAITokens404" target="_blank" rel="noreferrer" aria-label="GitHub" className="social-button"><Github size={18} /></a><a href="https://www.linkedin.com/in/numair-khan-13899b382" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-button"><Linkedin size={18} /></a><a href="mailto:numair.dev@example.com" aria-label="Email" className="social-button"><Mail size={18} /></a></div></div>
+              <div><div className="section-kicker">Get in touch</div><h2 className="section-title mt-5">Have an idea? Let&apos;s make it real.</h2><p className="mt-6 max-w-md text-[15px] leading-7 text-slate-500">Whether you&apos;re building something new, looking for a collaborator, or just want to say hello, my inbox is open.</p><div className="mt-9 space-y-4"><a href="mailto:numair.dev@example.com" className="contact-line group flex items-center gap-4"><span className="icon-badge bg-blue-50 text-blue-600"><Mail size={18} /></span><span><span className="block text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Email</span><span className="mt-1 block text-sm font-semibold text-slate-700 group-hover:text-blue-600">numair.dev@example.com</span></span></a><div className="contact-line flex items-center gap-4"><span className="icon-badge bg-violet-50 text-violet-600"><MapPin size={18} /></span><span><span className="block text-xs font-bold uppercase tracking-[0.14em] text-slate-400">Based in</span><span className="mt-1 block text-sm font-semibold text-slate-700">India · Working globally</span></span></div></div><div className="mt-9 flex gap-3"><a href="https://github.com/NumairAITokens404" target="_blank" rel="noreferrer" aria-label="GitHub" className="social-button"><Github size={18} /></a><a href="https://www.linkedin.com/in/numair-khan-13899b382" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="social-button"><Linkedin size={18} /></a><a href="mailto:numair.dev@example.com" aria-label="Email" className="social-button"><Mail size={18} /></a></div></div>
               <form onSubmit={handleSubmit} className="rounded-[1.75rem] border border-slate-200 bg-[#f8faff] p-6 shadow-[0_15px_42px_rgba(30,64,175,0.06)] sm:p-8"><div className="grid gap-5 sm:grid-cols-2"><label className="field-label">Name<input required name="name" placeholder="Your name" className="field-input" /></label><label className="field-label">Email<input required type="email" name="email" placeholder="you@example.com" className="field-input" /></label></div><label className="field-label mt-5">Message<textarea required name="message" rows={6} placeholder="Tell me a little about your idea..." className="field-input resize-none" /></label><div className="mt-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center"><p className="text-xs leading-5 text-slate-400">This form is a front-end placeholder for now. Connect your preferred email service later.</p><button type="submit" className="inline-flex items-center gap-2 rounded-full bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-[0_12px_22px_rgba(37,99,235,0.2)] transition hover:-translate-y-0.5 hover:bg-blue-700">{sent ? "Message sent" : "Send message"} {sent ? <Check size={16} /> : <Send size={16} />}</button></div></form>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-[#f8faff] py-9"><div className="container flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><a href="#top" className="flex items-center gap-3"><span className="brand-mark">N</span><span className="font-display text-base font-black tracking-[-0.04em]">Numair</span></a><p className="text-xs font-medium text-slate-400">© 2026 Numair. Built with curiosity and care.</p><div className="flex items-center gap-4 text-xs font-semibold text-slate-400"><a href="#about" className="transition hover:text-blue-600">About</a><a href="#contact" className="transition hover:text-blue-600">Contact</a><a href="#top" className="transition hover:text-blue-600">Back to top</a></div></div></footer>
+      <footer className="border-t border-slate-200 bg-[#f8faff] py-9"><div className="container flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><a href="#top" className="flex items-center gap-3"><span className="brand-mark">N</span><span className="font-display text-base font-black tracking-[-0.04em]">Numair</span></a><p className="text-xs font-medium text-slate-400">© Numair. Built with curiosity and care.</p><div className="flex items-center gap-4 text-xs font-semibold text-slate-400"><a href="#about" className="transition hover:text-blue-600">About</a><a href="#contact" className="transition hover:text-blue-600">Contact</a><a href="#top" className="transition hover:text-blue-600">Back to top</a></div></div></footer>
     </div>
   );
 }
