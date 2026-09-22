@@ -71,7 +71,7 @@ const projects = [
   {
     title: "CICS",
     description:
-      "A Reddit-style internal social platform for MGIT students with college-email access, community feeds, rooms, profiles, multiple post types, voting, direct messaging, and admin moderation.",
+      "A Reddit-style internal social platform for CBIT/MGIT students with college-email access, community feeds, rooms, profiles, multiple post types, voting, direct messaging, and admin moderation.",
     tags: ["Next.js", "Supabase", "TypeScript", "Tailwind"],
     accent: "from-emerald-500 to-teal-300",
     demo: "https://cics1.vercel.app",
