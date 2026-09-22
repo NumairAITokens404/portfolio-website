@@ -232,7 +232,7 @@ export default function Home() {
                   <div className="avatar-stage flex aspect-[4/5] items-end justify-center overflow-hidden rounded-[1.4rem] bg-[radial-gradient(circle_at_50%_12%,#dbeafe_0,#eff6ff_40%,#e0f2fe_100%)]">
                     <div className="avatar-glow" />
                     <img
-                      src="/manus-storage/IMG_1344_c7942dca.JPG"
+                      src="/profile.png"
                       alt="Numair"
                       className="relative z-10 h-[86%] w-[86%] rounded-[2rem] object-cover object-center shadow-2xl grayscale-[0.12] transition duration-500 hover:scale-[1.03]"
                     />
