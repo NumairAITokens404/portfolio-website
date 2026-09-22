@@ -57,28 +57,31 @@ const projects = [
     number: "01",
     title: "AstroGuardian AI",
     description:
-      "AI-powered mission control dashboard for space mission monitoring, analysis, and decision support.",
-    tags: ["TypeScript", "AI", "Dashboard"],
+      "A space-mission control dashboard with telemetry, crew and system monitoring, hazard panels, rover navigation, shuttle status, and an AI mission copilot powered by Google Gemini.",
+    tags: ["React", "TypeScript", "Express", "Gemini AI"],
     accent: "from-blue-600 to-cyan-400",
-    href: "https://github.com/NumairAITokens404/AstrogaurdianAI",
+    demo: "https://astroguardianai.vercel.app",
+    repo: "https://github.com/NumairAITokens404/AstrogaurdianAI.git",
   },
   {
     number: "02",
-    title: "React Todo App",
+    title: "FSOC",
     description:
-      "A focused productivity experience built to keep everyday tasks clear, quick, and easy to manage.",
-    tags: ["React", "TypeScript", "Frontend"],
+      "An ML/CV pipeline for a Unity-based free-space optical communication test environment, detecting and tracking optical beacons through preprocessing, CNN classification, temporal verification, and Kalman tracking.",
+    tags: ["Python", "OpenCV", "PyTorch", "FastAPI"],
     accent: "from-violet-600 to-fuchsia-400",
-    href: "https://github.com/NumairAITokens404/react-todo-app",
+    demo: null,
+    repo: "https://github.com/sidnim12/fsoc-ml-cv.git",
   },
   {
     number: "03",
-    title: "Next build, coming soon",
+    title: "CICS",
     description:
-      "A new project is taking shape. This space is ready for the next product, experiment, or collaboration.",
-    tags: ["In progress", "Web", "Ideas"],
+      "A Reddit-style internal social platform for MGIT students with college-email access, community feeds, rooms, profiles, multiple post types, voting, direct messaging, and admin moderation.",
+    tags: ["Next.js", "Supabase", "TypeScript", "Tailwind"],
     accent: "from-emerald-500 to-teal-300",
-    href: "https://github.com/NumairAITokens404",
+    demo: "https://cics1.vercel.app",
+    repo: "https://github.com/RamaChandra53/CICS.git",
   },
 ];
 
@@ -311,7 +314,7 @@ export default function Home() {
                       <div className="mt-4 grid grid-cols-[0.65fr_1fr] gap-2"><div className="rounded-md bg-slate-200/70" /><div className="space-y-2"><div className="h-2 w-3/4 rounded bg-slate-300/80" /><div className="h-2 w-full rounded bg-slate-200" /><div className="h-2 w-4/5 rounded bg-slate-200" /></div></div>
                     </div>
                   </div>
-                  <div className="p-6"><div className="mb-3 flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.13em] text-slate-500">{tag}</span>)}</div><h3 className="font-display text-2xl font-black tracking-[-0.05em] text-slate-950">{project.title}</h3><p className="mt-3 min-h-[72px] text-sm leading-6 text-slate-500">{project.description}</p><a href={project.href} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-slate-900 transition hover:text-blue-600">View project <ExternalLink size={15} /></a></div>
+                  <div className="p-6"><div className="mb-3 flex flex-wrap gap-2">{project.tags.map((tag) => <span key={tag} className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.13em] text-slate-500">{tag}</span>)}</div><h3 className="font-display text-2xl font-black tracking-[-0.05em] text-slate-950">{project.title}</h3><p className="mt-3 min-h-[96px] text-sm leading-6 text-slate-500">{project.description}</p><div className="mt-6 flex flex-wrap items-center gap-4">{project.demo ? <a href={project.demo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-blue-600 transition hover:text-blue-700">Live demo <ExternalLink size={15} /></a> : <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-amber-600">In progress</span>}<a href={project.repo} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-slate-900 transition hover:text-blue-600">Source <Github size={15} /></a></div></div>
                 </article>
               ))}
             </div>
