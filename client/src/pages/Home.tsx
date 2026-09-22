@@ -6,12 +6,9 @@ import {
   BriefcaseBusiness,
   Check,
   ChevronRight,
-  Code2,
   Download,
   ExternalLink,
   Github,
-  Globe2,
-  Layers3,
   Linkedin,
   Mail,
   MapPin,
@@ -41,6 +38,8 @@ const backendSkills = [
   { name: "Firebase", short: "Fi", color: "#ffca28" },
   { name: "REST APIs", short: "↗", color: "#f97316" },
 ];
+
+const allSkills = [...frontendSkills, ...backendSkills];
 
 const additionalSkills = [
   "Responsive Design",
@@ -91,28 +90,54 @@ const navItems = [
   { label: "Contact", href: "#contact" },
 ];
 
-function SkillTile({ name, short, color }: { name: string; short: string; color: string }) {
-  return (
-    <div className="skill-tile group flex items-center gap-3 rounded-2xl border border-slate-200/80 bg-white/85 px-4 py-3 shadow-[0_6px_20px_rgba(30,64,175,0.05)] transition duration-200 hover:-translate-y-1 hover:border-blue-200 hover:shadow-[0_14px_30px_rgba(37,99,235,0.12)]">
-      <span
-        className="flex h-9 w-9 items-center justify-center rounded-xl text-[11px] font-black tracking-tight text-white shadow-sm"
-        style={{ backgroundColor: color }}
-      >
-        {short}
-      </span>
-      <span className="text-sm font-semibold text-slate-700">{name}</span>
-    </div>
-  );
-}
-
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [sent, setSent] = useState(false);
+  const [heroText, setHeroText] = useState("Numair.");
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
+
+  useEffect(() => {
+    const name = "Numair.";
+    const role = "Full Stack Developer";
+    let index = name.length;
+    let deleting = true;
+    let showingRole = false;
+
+    const interval = window.setInterval(() => {
+      if (deleting && index > 0) {
+        index -= 1;
+        setHeroText(name.slice(0, index));
+        return;
+      }
+
+      if (deleting && index === 0) {
+        deleting = false;
+        showingRole = true;
+        return;
+      }
+
+      if (!deleting && showingRole && index < role.length) {
+        index += 1;
+        setHeroText(role.slice(0, index));
+        return;
+      }
+
+      if (!deleting && showingRole && index === role.length) {
+        showingRole = false;
+        window.setTimeout(() => {
+          deleting = true;
+          index = name.length;
+          setHeroText(name);
+        }, 1800);
+      }
+    }, 115);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -181,12 +206,9 @@ export default function Home() {
           <div className="hero-orb hero-orb-two" />
           <div className="hero-grid" />
           <div className="container relative z-10 py-24 text-center">
-            <div className="mx-auto mb-7 flex w-fit items-center gap-2 rounded-full border border-blue-100 bg-white/75 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-700 shadow-sm backdrop-blur">
-              <Sparkles size={13} /> Building with intent
-            </div>
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.22em] text-slate-500">Hi, I&apos;m</p>
-            <h1 className="font-display text-[clamp(3.8rem,9vw,7.7rem)] font-black leading-[0.92] tracking-[-0.075em] text-slate-950">
-              Numair<span className="text-blue-600">.</span>
+            <h1 className="hero-type font-display text-[clamp(3.8rem,9vw,7.7rem)] font-black leading-[0.92] tracking-[-0.075em] text-slate-950">
+              {heroText}<span className="type-caret" aria-hidden="true" />
             </h1>
             <p className="mx-auto mt-8 max-w-2xl text-base leading-7 text-slate-500 sm:text-lg">
               Full-stack developer crafting thoughtful digital experiences with modern technologies, strong foundations, and a curiosity for what&apos;s next.
@@ -214,7 +236,7 @@ export default function Home() {
                   <div className="avatar-stage flex aspect-[4/5] items-end justify-center overflow-hidden rounded-[1.4rem] bg-[radial-gradient(circle_at_50%_12%,#dbeafe_0,#eff6ff_40%,#e0f2fe_100%)]">
                     <div className="avatar-glow" />
                     <img
-                      src="https://avatars.githubusercontent.com/u/218805273?v=4"
+                      src="/manus-storage/IMG_1344_c7942dca.JPG"
                       alt="Numair"
                       className="relative z-10 h-[86%] w-[86%] rounded-[2rem] object-cover object-center shadow-2xl grayscale-[0.12] transition duration-500 hover:scale-[1.03]"
                     />
@@ -256,20 +278,12 @@ export default function Home() {
               <h2 className="section-title mt-5">Tools I use to bring ideas to life.</h2>
               <p className="mt-5 text-[15px] leading-7 text-slate-500">A growing toolkit across frontend development, backend systems, and the habits that make good products possible.</p>
             </div>
-            <div className="mt-14 grid gap-6 lg:grid-cols-2">
-              <div className="rounded-[1.75rem] border border-blue-100/80 bg-white p-7 shadow-[0_12px_40px_rgba(30,64,175,0.06)] sm:p-8">
-                <div className="mb-7 flex items-start justify-between">
-                  <div><div className="icon-badge bg-blue-50 text-blue-600"><Code2 size={18} /></div><h3 className="mt-5 font-display text-2xl font-black tracking-[-0.05em]">Frontend development</h3><p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">Interfaces that are responsive, accessible, and built with care.</p></div>
-                  <span className="text-5xl font-black text-blue-100">01</span>
-                </div>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">{frontendSkills.map((skill) => <SkillTile key={skill.name} {...skill} />)}</div>
+            <div className="mt-14 space-y-4 overflow-hidden [mask-image:linear-gradient(90deg,transparent,black_8%,black_92%,transparent)]">
+              <div className="marquee-row marquee-left">
+                <div className="marquee-track">{[...allSkills, ...allSkills].map((skill, index) => <span key={`left-${skill.name}-${index}`} className="marquee-chip"><span className="marquee-dot" style={{ backgroundColor: skill.color }} />{skill.name}</span>)}</div>
               </div>
-              <div className="rounded-[1.75rem] border border-violet-100/80 bg-white p-7 shadow-[0_12px_40px_rgba(30,64,175,0.06)] sm:p-8">
-                <div className="mb-7 flex items-start justify-between">
-                  <div><div className="icon-badge bg-violet-50 text-violet-600"><Layers3 size={18} /></div><h3 className="mt-5 font-display text-2xl font-black tracking-[-0.05em]">Backend development</h3><p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">The APIs, data, and infrastructure behind useful experiences.</p></div>
-                  <span className="text-5xl font-black text-violet-100">02</span>
-                </div>
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">{backendSkills.map((skill) => <SkillTile key={skill.name} {...skill} />)}</div>
+              <div className="marquee-row marquee-right">
+                <div className="marquee-track">{[...allSkills, ...allSkills].reverse().map((skill, index) => <span key={`right-${skill.name}-${index}`} className="marquee-chip"><span className="marquee-dot" style={{ backgroundColor: skill.color }} />{skill.name}</span>)}</div>
               </div>
             </div>
             <div className="mt-6 rounded-[1.75rem] border border-slate-200/80 bg-white p-7 shadow-[0_12px_40px_rgba(30,64,175,0.04)] sm:p-8">
